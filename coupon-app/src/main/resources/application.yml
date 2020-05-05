@@ -1,4 +1,3 @@
-
 dubbo:
   application:
     name: user-coupon
@@ -31,3 +30,27 @@ dubbo:
     address: 127.0.0.1:2181
 server:
   port: 8090
+druid:
+  allow:
+    ip: 127.0.0.1
+  login:
+    user_name: root
+    password: root
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xdclass-shop?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    dbcp2:
+      initial-size: 1
+      min-idle: 1
+      max-idle: 5
+      max-wait-millis: 60000
+      time-between-eviction-runs-millis: 6000
+logging:
+  name: xdclass-coupon
+  config: classpath:logback-spring.xml
+  level:
+    root: info
