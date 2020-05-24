@@ -1,41 +1,11 @@
-dubbo:
-  application:
-    name: user-coupon
-  # Ê¹ÓÃ zookeeper ×¢²áÖĞĞÄ±©Â¶·şÎñ£¬×¢ÒâÒªÏÈ¿ªÆô zookeeper
-  # ×¢²áÖĞĞÄid
-  registry:
-    id: zookeeper-registry
-    # ×¢²áÖĞĞÄĞ­Òé
-    protocol: zookeeper
-    # ×¢²áÖĞĞÄµØÖ·
-    address: 127.0.0.1:2181
-  # dubboĞ­ÒéÔÚ20881¶Ë¿Ú±©Â¶·şÎñ
-  # Ğ­ÒéÃû³Æ
-  protocol:
-    name: dubbo
-    # Ğ­Òé¶Ë¿Ú
-    port: 20881
-    # Ğ­Òé·ÃÎÊlog
-    accesslog: dubbo-access.log
-  # ÖØÊÔ´ÎÊı
-  provider:
-    retries: 0
-    # ³¬Ê±Ê±¼ä
-    timeout: 3000
-  # ×¢²á¼à¿ØÖĞĞÄ
-  monitor:
-    protocol: registry
-  config-center:
-    protocol: zookeeper
-    address: 127.0.0.1:2181
 server:
-  port: 8090
+   port: 8088
 druid:
   allow:
-    ip: 127.0.0.1
+     ip: 127.0.0.1
   login:
-    user_name: root
-    password: root
+     user_name: root
+     password: root
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -43,14 +13,56 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
-    dbcp2:
-      initial-size: 1
-      min-idle: 1
-      max-idle: 5
-      max-wait-millis: 60000
-      time-between-eviction-runs-millis: 6000
+    initial-size: 1
+    min-idle: 1
+    max-idle: 5
+    max-wait-millis: 60000
+    timeBetweenEvictionRunsMillis: 60000
+      # é…ç½®ä¸€ä¸ªè¿æ¥åœ¨æ± ä¸­æœ€å°ç”Ÿå­˜çš„æ—¶é—´ï¼Œå•ä½æ˜¯æ¯«ç§’
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    maxPoolPreparedStatementPerConnectionSize: 20
+      # é…ç½®ç›‘æ§ç»Ÿè®¡æ‹¦æˆªçš„filtersï¼Œå»æ‰åç›‘æ§ç•Œé¢sqlæ— æ³•ç»Ÿè®¡ï¼Œ'wall'ç”¨äºé˜²ç«å¢™
+    filters: stat,wall
+      # é€šè¿‡connectPropertieså±æ€§æ¥æ‰“å¼€mergeSqlåŠŸèƒ½ï¼›æ…¢SQLè®°å½•
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+dubbo:
+  application:
+    name: user-coupon
+    qosPort: 22221
+  # ä½¿ç”¨ zookeeper æ³¨å†Œä¸­å¿ƒæš´éœ²æœåŠ¡ï¼Œæ³¨æ„è¦å…ˆå¼€å¯ zookeeper
+  # æ³¨å†Œä¸­å¿ƒid
+  registry:
+    id: zookeeper-registry
+    # æ³¨å†Œä¸­å¿ƒåè®®
+    protocol: zookeeper
+    # æ³¨å†Œä¸­å¿ƒåœ°å€
+    address: 127.0.0.1:2181
+  # dubboåè®®åœ¨20881ç«¯å£æš´éœ²æœåŠ¡
+  # åè®®åç§°
+  protocol:
+    name: dubbo
+    # åè®®ç«¯å£
+    port: 20881
+    # åè®®è®¿é—®log
+    accesslog: dubbo-access.log
+  # é‡è¯•æ¬¡æ•°
+  provider:
+    retries: 0
+    # è¶…æ—¶æ—¶é—´
+    timeout: 3000
+  # æ³¨å†Œç›‘æ§ä¸­å¿ƒ
+  monitor:
+    protocol: registry
+  config-center:
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+
 logging:
-  name: xdclass-coupon
-  config: classpath:logback-spring.xml
-  level:
-    root: info
+   name: xdclass-coupon
+   config: classpath:logback-spring.xml
+   level:
+      root: info

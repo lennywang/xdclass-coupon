@@ -3,6 +3,8 @@ package com.xdclass.couponapp.mapper;
 import com.xdclass.couponapp.domain.TCoupon;
 import com.xdclass.couponapp.domain.TCouponExample;
 import java.util.List;
+
+import com.xdclass.couponapp.domain.TUserCoupon;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
@@ -86,6 +88,22 @@ public interface TCouponMapper {
         @Result(column="end_time", property="endTime", jdbcType=JdbcType.TIMESTAMP)
     })
     TCoupon selectByPrimaryKey(Integer id);
+
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="code", property="code", jdbcType=JdbcType.VARCHAR),
+            @Result(column="pic_url", property="picUrl", jdbcType=JdbcType.VARCHAR),
+            @Result(column="achieve_amount", property="achieveAmount", jdbcType=JdbcType.INTEGER),
+            @Result(column="reduce_amount", property="reduceAmount", jdbcType=JdbcType.INTEGER),
+            @Result(column="stock", property="stock", jdbcType=JdbcType.INTEGER),
+            @Result(column="title", property="title", jdbcType=JdbcType.VARCHAR),
+            @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+            @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+            @Result(column="start_time", property="startTime", jdbcType=JdbcType.TIMESTAMP),
+            @Result(column="end_time", property="endTime", jdbcType=JdbcType.TIMESTAMP)
+    })
+    @Select("select id, code, pic_url, achieve_amount, reduce_amount, stock, title, status, create_time, start_time, end_time from t_coupon where id = #{id}")
+    TCoupon finudCouponById(@Param("id") Integer id);
 
     @UpdateProvider(type=TCouponSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") TCoupon record, @Param("example") TCouponExample example);

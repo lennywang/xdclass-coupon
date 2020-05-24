@@ -39,7 +39,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="t_coupon">
+		<table tableName="t_user_coupon">
 			<generatedKey column="id" sqlStatement="JDBC"/>
 		</table>
 

@@ -1,0 +1,56 @@
+dubbo:
+  application:
+    name: user-coupon
+  # 使用 zookeeper 注册中心暴露服务，注意要先开启 zookeeper
+  # 注册中心id
+  registry:
+    id: zookeeper-registry
+    # 注册中心协议
+    protocol: zookeeper
+    # 注册中心地址
+    address: 127.0.0.1:2181
+  # dubbo协议在20881端口暴露服务
+  # 协议名称
+  protocol:
+    name: dubbo
+    # 协议端口
+    port: 20881
+    # 协议访问log
+    accesslog: dubbo-access.log
+  # 重试次数
+  provider:
+    retries: 0
+    # 超时时间
+    timeout: 3000
+  # 注册监控中心
+  monitor:
+    protocol: registry
+  config-center:
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+server:
+  port: 8090
+druid:
+  allow:
+    ip: 127.0.0.1
+  login:
+    user_name: root
+    password: root
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xdclass-shop?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    dbcp2:
+      initial-size: 1
+      min-idle: 1
+      max-idle: 5
+      max-wait-millis: 60000
+      time-between-eviction-runs-millis: 6000
+logging:
+  name: xdclass-coupon
+  config: classpath:logback-spring.xml
+  level:
+    root: info

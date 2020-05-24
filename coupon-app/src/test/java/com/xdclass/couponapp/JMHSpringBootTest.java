@@ -33,7 +33,7 @@ public class JMHSpringBootTest {
     }
 
     public void testMap(){
-        System.out.println(couponService.get);
+//        System.out.println(couponService.get);
     }
 
 }
